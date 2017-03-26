@@ -1,13 +1,13 @@
 package servers
 
 import (
-	"encoding/json"
 	"fmt"
 
-	"github.com/karolszmaj/gotrack/infrastructure/database/models"
-	auth "github.com/karolszmaj/gotrack/infrastructure/service/auth"
-	"github.com/karolszmaj/gotrack/infrastructure/service/shared"
+	"github.com/fluffytime/singularity/infrastructure/database/models"
+	auth "github.com/fluffytime/singularity/infrastructure/service/auth"
 	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -19,11 +19,24 @@ type AuthServer struct {
 
 //Login user authentication via email and passwordHash
 func (srv *AuthServer) Login(ctx context.Context, req *auth.AuthRequest) (*auth.AuthResponse, error) {
-	cols, err := srv.DB.CollectionNames()
+	fmt.Println("kupa")
+	var usr *dbmodels.User
+	q := srv.DB.C("users").Find(bson.M{"email": req.Email})
+	err := q.One(&usr)
+
 	if err != nil {
 		fmt.Println(err.Error())
+		return nil, grpc.Errorf(codes.Unauthenticated, "nie ma to nie ma")
 	}
-	fmt.Println("Collection names", cols)
+
+	if &usr != nil {
+		return &auth.AuthResponse{Token: "baladsada123131312"}, nil
+	}
+
+	return nil, fmt.Errorf("Server error")
+}
+
+/*
 
 	usr := dbmodels.User{
 		Email:     "karolszmaj@whallalabs.com",
@@ -43,4 +56,3 @@ func (srv *AuthServer) Login(ctx context.Context, req *auth.AuthRequest) (*auth.
 		}
 
 		return nil, fmt.Errorf("Unauthorized")*/
-}

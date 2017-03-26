@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"github.com/karolszmaj/gotrack/infrastructure/service/auth"
-	"gopkg.in/mgo.v2"
-	"github.com/karolszmaj/gotrack/app"
-	"github.com/karolszmaj/gotrack/infrastructure/servers"
+
+	"github.com/fluffytime/singularity/app"
+	"github.com/fluffytime/singularity/infrastructure/servers"
+	"github.com/fluffytime/singularity/infrastructure/service/auth"
 	"google.golang.org/grpc"
+	"gopkg.in/mgo.v2"
 )
 
 var dbs *mgo.Database
