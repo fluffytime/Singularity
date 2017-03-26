@@ -8,4 +8,5 @@ type User struct {
 	LastName  string        `json:"lastName" bson:"lastName`
 	Email     string        `json:"email" bson:"email`
 	Groups    []string      `json:"groups" bson:"groups`
+	Password  string        `json:"password" bson:"password`
 }

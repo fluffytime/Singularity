@@ -11,18 +11,18 @@ import (
 var Config appConfig
 
 type appConfig struct {
-	// the server port. Defaults to 8080
-	ServerPort int `mapstructure:"server_port"`
-	// the data source name (DSN) for connecting to the database. required.
+	// authentication server port. Defaults to 8082
+	AuthSrvPort int `mapstructure:"s_auth_port"`
+	// timesheet server port. Defaults to 8083
+	TSSrvPort int `mapstructure:"s_ts_port"`
+	// the data source name (DSN) for connecting to the database. required. mongodb obligatory
 	DSN string `mapstructure:"dsn"`
-	// the database provider
-	DSNType string `mapstructure:"dsnType"`
-	// the signing method for JWT. Defaults to "HS256"
-	JWTSigningMethod string `mapstructure:"jwt_signing_method"`
 	// JWT signing key. required.
 	JWTSigningKey string `mapstructure:"jwt_signing_key"`
 	// JWT verification key. required.
 	JWTVerificationKey string `mapstructure:"jwt_verification_key"`
+	/// Scrypt hash function salt
+	ScryptSalt string `mapstructure:"scrypt_salt"`
 }
 
 func (config appConfig) Validate() error {
@@ -30,20 +30,20 @@ func (config appConfig) Validate() error {
 		validation.Field(&config.DSN, validation.Required),
 		validation.Field(&config.JWTSigningKey, validation.Required),
 		validation.Field(&config.JWTVerificationKey, validation.Required),
+		validation.Field(&config.ScryptSalt, validation.Required),
 	)
 }
 
 // LoadConfig loads configuration from the given list of paths and populates it into the Config variable.
 // The configuration file(s) should be named as app.yaml.
-// Environment variables with the prefix "RESTFUL_" in their names are also read automatically.
 func LoadConfig(configPaths ...string) error {
 	v := viper.New()
 	v.SetConfigName("app")
 	v.SetConfigType("yaml")
-	v.SetEnvPrefix("gotrack")
+	v.SetEnvPrefix("singularity")
 	v.AutomaticEnv()
-	v.SetDefault("server_port", 8080)
-	v.SetDefault("jwt_signing_method", "HS256")
+	v.SetDefault("s_auth_port", 8082)
+	v.SetDefault("s_ts_port", 8083)
 	for _, path := range configPaths {
 		v.AddConfigPath(path)
 	}

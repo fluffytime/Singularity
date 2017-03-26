@@ -6,7 +6,7 @@ import (
 	"net"
 
 	"github.com/fluffytime/singularity/app"
-	"github.com/fluffytime/singularity/infrastructure/servers"
+	"github.com/fluffytime/singularity/infrastructure/servers/auth"
 	"github.com/fluffytime/singularity/infrastructure/service/auth"
 	"google.golang.org/grpc"
 	"gopkg.in/mgo.v2"
