@@ -6,6 +6,7 @@ import (
 
 	"github.com/karolszmaj/gotrack/infrastructure/database/models"
 	auth "github.com/karolszmaj/gotrack/infrastructure/service/auth"
+	"github.com/karolszmaj/gotrack/infrastructure/service/shared"
 	"golang.org/x/net/context"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -35,7 +36,7 @@ func (srv *AuthServer) Login(ctx context.Context, req *auth.AuthRequest) (*auth.
 	uj, _ := json.Marshal(usr)
 	fmt.Printf("%s", uj)
 
-	return nil, nil
+	return &auth.AuthResponse{Status: shared.ResponseStatus_OK, Success: true, Token: "blablabla"}, nil
 	/*
 		if req.Email == "karol.szmaj@whallalabs.com" && req.PasswordHash == "kurwa" {
 			return &auth.AuthResponse{Token: "asdasdasdas", Success: true, Status: shared.ResponseStatus_Unauthorized}, nil
