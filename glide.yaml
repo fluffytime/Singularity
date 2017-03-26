@@ -1,2 +1,16 @@
-package: .
-import: []
+package: github.com/fluffytime/singularity
+import:
+- package: github.com/dgrijalva/jwt-go
+- package: github.com/go-ozzo/ozzo-validation
+- package: github.com/golang/protobuf
+  subpackages:
+  - proto
+- package: github.com/spf13/viper
+- package: golang.org/x/crypto/scrypt
+- package: golang.org/x/net/context
+- package: google.golang.org/grpc
+  subpackages:
+  - codes
+- package: gopkg.in/mgo.v2
+  subpackages:
+  - bson
