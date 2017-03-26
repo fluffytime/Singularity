@@ -1,0 +1,13 @@
+# The Data Source Name for the database
+# App uses default db as mongodb
+# Make sure you override this in production with the environment variable: GOTRACK_MONGODSN
+dsn: "mongodb://localhost/gotrack"
+#Available providers: mysql, psql, mssql, sqlite, oracle
+dsnType: "mysql"
+# These are secret keys used for JWT signing and verification.
+# Make sure you override these keys in production by the following environment variables:
+#   GOTRACK_JWT_VERIFICATION_KEY
+#   GOTRACK_JWT_SIGNING_KEY
+jwt_verification_key: "QfCAH04Cob7b71QCqy738vw5XGSnFZ9d"
+jwt_signing_key: "QfCAH04Cob7b71QCqy738vw5XGSnFZ9d"
+jwt_signing_method: "HS256"

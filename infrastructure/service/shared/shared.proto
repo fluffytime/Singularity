@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package shared;
+
+enum ResponseStatus {
+    OK = 0;
+    Error = 1;
+    Unauthorized = 2;
+}
